@@ -1,2 +1,2 @@
-# KingFastFood---Final-Web-1
+# KingFastFood Final-Web-1
 Final Web Project
