@@ -211,7 +211,7 @@
     }
 
     .input-field {
-        font-size: 0.9rem !important;
+        font-size: 0.8rem !important;
         margin: 0px 0px 12px !important;
         min-width: 100%;
     }
@@ -398,5 +398,13 @@
 
     .header-logo--link {
         font-size: 1.4rem;
+    }
+
+    .form-group {
+        margin: 0 !important;
+    }
+
+    .checkbox-form {
+        left: 0 !important;
     }
 }

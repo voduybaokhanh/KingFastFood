@@ -50,7 +50,6 @@
     left: 0;
     right: 0;
     opacity: 0;
-    transform: scale(1.36);
 }
 
 .LR-main {
@@ -138,9 +137,8 @@
     border-right: none;
     border-left: none;
     border-bottom: 1px solid #d6d6d6;
-    padding: 16px 12px 2px;
     font-size: 1.2rem;
-    margin: 0 12px 12px;
+    transition: all 0.3s;
 }
 
 .input-field::placeholder {
@@ -247,4 +245,29 @@
     flex-direction: column;
     align-content: center;
     justify-content: flex-start;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 12px 2px;
+    margin: 0 12px 12px;
+}
+
+.form-message {
+    font-size: 0.8rem;
+    line-height: 1.6rem;
+    padding: 4px 0 0;
+}
+
+.form-control:hover {
+    border-color: #70b600;
+  }
+
+.form-group.invalid .form-control {
+    border-color: #f33a58;
+  }
+  
+.form-group.invalid .form-message {
+    color: #f33a58;
 }

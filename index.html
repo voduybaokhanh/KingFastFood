@@ -269,13 +269,19 @@
             </div>
             <div class="LR-container">
                 <!-- Login  -->
-                <form id="login" class="LR-container--item isActive" method="get">
+                <form id="login" class="LR-container--item isActive" method="post" action="">
                     <div class="LR-body">
                         <div class="login-group">
-                            <input id="js-LG_account" type="text" class="input-field" placeholder="Tên Đăng Nhập"
-                                maxlength="24" required>
-                            <input id="js-LG_password" type="password" class="input-field" placeholder="Mật khẩu"
-                                maxlength="12" required>
+                            <div class="form-group">
+                                <input id="js-LG_account" name="js-LG_account" type="text" class="form-control input-field" placeholder="Tên Đăng Nhập" rules="required|max:24" maxlength="24">
+                                <span class="form-message"></span>   
+                            </div>
+                             
+                            <div class="form-group">
+                                <input id="js-LG_password" name="js-LG_password" type="password" class="form-control input-field" placeholder="Mật khẩu" rules="required|max:12" maxlength="12">
+                                <span class="form-message"></span>  
+                            </div>
+                            
                             <div class="checkbox-form">
                                 <input type="checkbox" class="check-box"><span>Ghi nhớ mật khẩu</span>
                             </div>
@@ -307,33 +313,55 @@
                 </form>
 
                 <!-- Register -->
-                <form id="register" class="LR-container--item" method="get">
+                <form id="register" class="LR-container--item" method="post" action="">
                     <div class="LR-body">
                         <div class="login-group">
                             <div class="RG_flexParrent">
                                 <div class="RG_flexItem">
-                                    <input id="js-RG_gmail" type="email" class="input-field"
-                                        placeholder="Nhập vào gmail" required>
-                                    <input id="js-RG_account" type="text" class="input-field"
-                                        placeholder="Tên đăng nhập" maxlength="24" required>
-                                    <input id="js-RG_password" type="password" class="input-field"
-                                        placeholder="Nhập mật khẩu" maxlength="12" required>
-                                    <input id="js-RG_RePassword" type="password" class="input-field"
-                                        placeholder="Nhập lại mật khẩu" maxlength="12" required>
+                                    <div class="form-group">
+                                        <input id="js-RG_gmail" name="js-RG_gmail" type="email" class="input-field form-control" rules="required|email" placeholder="Nhập vào gmail">
+                                        <span class="form-message"></span>  
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input id="js-RG_account" name="js-RG_account" type="text" class="input-field form-control" rules="required|max:24" placeholder="Tên đăng nhập" maxlength="24">
+                                        <span class="form-message"></span>  
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input id="js-RG_password" name="js-RG_password" type="password" class="input-field form-control" rules="required|max:12" placeholder="Nhập mật khẩu" maxlength="12">
+                                        <span class="form-message"></span>  
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input id="js-RG_RePassword" name="js-RG_RePassword" type="password" class="input-field form-control" rules="required|max:12" placeholder="Nhập lại mật khẩu" maxlength="12">
+                                        <span class="form-message"></span>  
+                                    </div>
                                 </div>
+
                                 <div class="RG_flexItem">
-                                    <input id="js-RG_name" type="text" class="input-field"
-                                        placeholder="Họ và tên người dùng" maxlength="30" required>
-                                    <input id="js-RG_phonenumber" type="text" class="input-field"
-                                        placeholder="Nhập số điện thoại" maxlength="13" required>
-                                    <input id="js-RG_address" type="text" class="input-field"
-                                        placeholder="Nhập địa chỉ nhà" maxlength="50" required>
+                                    <div class="form-group">
+                                        <input id="js-RG_name" name="js-RG_name" type="text" class="input-field form-control" rules="required|max:30" placeholder="Họ và tên người dùng" maxlength="30">
+                                        <span class="form-message"></span>  
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input id="js-RG_phonenumber" name="js-RG_phonenumber" type="text" class="input-field form-control" rules="required|max:13" placeholder="Nhập số điện thoại" maxlength="13">
+                                        <span class="form-message"></span>  
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input id="js-RG_address" name="js-RG_address" type="text" class="input-field form-control" rules="required|max:50" placeholder="Nhập địa chỉ liên lạc" maxlength="50">
+                                        <span class="form-message"></span>  
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="checkbox-form">
-                                <input id="js-RG_radio" type="checkbox" class="check-box"><span>Tôi đã đồng ý với
-                                    <a href="#">điều khoản</a> và <a href="#">dịch vụ</a>.</span>
+                                <input id="js-RG_radio" type="checkbox" class="check-box">
+                                <span>Tôi đã đồng ý với <a href="#">điều khoản</a> và <a href="#">dịch vụ</a>.</span>
                             </div>
+                            
                             <button id="js-btn-register" type="button" class="sumbit-btn">Đăng Kí</button>
                         </div>
                     </div>
@@ -359,7 +387,12 @@
     <script src="./assets/scripts/EventHandler.js"></script>
     <script src="./assets/scripts/Products.js"></script>
     <script src="./assets/scripts/Cart.js"></script>
+    <script src="./assets/scripts/validateForm.js"></script>
     <script src="./assets/scripts/LoginRegister.js"></script>
 </body>
 
+    <script>
+        Validator("#login", ".form-group", ".form-message");
+        Validator("#register", ".form-group", ".form-message");
+    </script>
 </html>

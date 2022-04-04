@@ -29,53 +29,10 @@ function register() {
 		} else if(checkAcc) {
 			alert("Đã có người sử dụng tên đăng nhập này rồi !");
 		} else {
-			if(name.value.length == 0) {
-				alert("Học và tên ko được để trống !");
-				name.focus();
-				return false;
-			}
-
-			if(gmail.value.length == 0) {
-				alert("gmail ko được để trống !");
-				gmail.focus();
-				return false;
-			}
-
-			// sử dụng Regular Expressions kiểm tra email có hợp lệ hay không
-			var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
-			if (!filter.test(gmail.value)) { 
-				alert('Địa chỉ Email không hợp lệ.\nVí dụ: Example@gmail.com');
-				gmail.focus; 
-				return false; 
-	   		}	
-
-			if(username.value.length == 0) {
-				alert("Tên người dùng ko được để trống !");
-				username.focus();
-				return false;
-			}
-
-			if(password.value.length == 0) {
-				alert("Mật khẩu ko được để trống !");
-				password.focus();
-				return false;
-			}
-
+			
 			if (REpassword.value != password.value) {
 				alert("Mật khẩu và mật khẩu xác nhận phải giống nhau !");
 				REpassword.focus();
-				return false;
-			}
-			
-			if(Phonenumber.value.length == 0) {
-				alert("số điện thoại ko được để trống !");
-				Phonenumber.focus();
-				return false;
-			}
-
-			if(Address.value.length == 0) {
-				alert("Địa chỉ ko được để trống !");
-				Address.focus();
 				return false;
 			}
 
@@ -147,18 +104,6 @@ function login() {
 		var username = document.getElementById("js-LG_account");
 		var password = document.getElementById("js-LG_password");
 		var userArray = JSON.parse(localStorage.getItem('user'));
-
-		if(username.value.length === 0) {
-			alert("vui lòng nhập tên tài khoản !");
-			username.focus();
-			return false;
-		}
-
-		if(password.value.length === 0) {
-			alert("vui lòng nhập mật khẩu !");
-			password.focus();
-			return false;
-		}
 
 		// kiểm tra tài khoản có tồn tại trong Local Storage hay không
 		var checkAcc = userArray.some((item) => {
