@@ -50,9 +50,7 @@ function Validator(formSelector, formGr, formMsg) {
     
     // Nếu formElement có tồn tại
     if(formElement) {
-        console.log(formElement)
         var inputs = formElement.querySelectorAll('[name][rules]'); // inputs: Node List
-        console.log(inputs)
         for(var input of inputs) {
             var rules = input.getAttribute('rules').split('|');
             for(var rule of rules) {
