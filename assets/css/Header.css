@@ -106,3 +106,17 @@
     right: 0;
     top: 0;
 }
+/* Style for the small white circle */
+.cart-count {
+    background-color: #ff4500; /* Màu nền của số lượng */
+    color: #fff; /* Màu chữ của số lượng */
+    font-size: 12px; /* Kích cỡ chữ của số lượng */
+    padding: 2px 6px; /* Khoảng cách giữa nền và nội dung */
+    border-radius:100%; /* Độ cong của góc */
+    margin-left: 5px; /* Khoảng cách với nội dung trước đó */
+  }
+  
+  .header-navbar--item {    
+    position: relative;
+  }
+  
