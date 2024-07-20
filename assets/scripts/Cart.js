@@ -44,7 +44,7 @@ function addCart(nameProduct) {
                         <div class="container__cart-Item-Info">
                             <div class="container__cart-Item-head">
                                 <h5 class="container__cart-Item-name">${tempArray[j].name}</h5>
-                                <span class="container__cart-Item-price">${tempArray[j].price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span>
+                                <span class="container__cart-Item-price">${tempArray[j].price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
                             </div>
                             <div class="container__cart-Item-body">
                                 <div class="container__cart-Item-desciption">Phân Loại: ${tempArray[j].type}</div>
@@ -89,7 +89,7 @@ function deleteCart(nameProduct) {
             <div class="container__cart-Item-Info">
                 <div class="container__cart-Item-head">
                     <h5 class="container__cart-Item-name">${tempArray[j].name}</h5>
-                    <span class="container__cart-Item-price">${tempArray[j].price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span>
+                    <span class="container__cart-Item-price">${tempArray[j].price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
                 </div>
                 <div class="container__cart-Item-body">
                     <div class="container__cart-Item-desciption">Phân Loại: ${tempArray[j].type}</div>
@@ -113,6 +113,46 @@ function deleteCart(nameProduct) {
     // bthg nếu ko làm gì thì nút đặt hàng k tồn tại do chưa inner ra
     pushCarttoLocalStorage();
 }
+// Hàm thêm sản phẩm vào giỏ hàng
+function addCart(name) {
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var found = false;
+
+    // Tìm xem sản phẩm đã có trong giỏ hàng chưa
+    for (var i = 0; i < cart.length; i++) {
+        if (cart[i].name === name) {
+            cart[i].quantity += 1;
+            found = true;
+            break;
+        }
+    }
+
+    // Nếu chưa có thì thêm mới vào giỏ hàng
+    if (!found) {
+        cart.push({ name: name, quantity: 1 });
+    }
+
+    // Lưu giỏ hàng vào Local Storage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Cập nhật hiển thị số lượng sản phẩm trong giỏ hàng
+    updateCartCount();
+}
+
+// Hàm cập nhật hiển thị số lượng sản phẩm trong giỏ hàng menu
+function updateCartCount() {
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var cartCount = 0;
+
+    // Đếm tổng số lượng sản phẩm trong giỏ hàng
+    for (var i = 0; i < cart.length; i++) {
+        cartCount += cart[i].quantity;
+    }
+
+    // Cập nhật hiển thị số lượng trong menu
+    document.getElementById('cart-count').innerText = cartCount;
+}
+
 
 // ---------------------------------------------------------------------------- //
 // function xử lí công việc xử lí và gửi đơn hàng mà user đã đặt lên Local Storage
@@ -135,12 +175,12 @@ function pushCarttoLocalStorage() {
                 var totalMoney = tempArray.reduce((total, item) => {
                     return total + item.price;
                 }, 0)
-                
+
                 // tạo biến lưu lại ngày giờ tạo hoá đơn
                 var today = new Date();
-                var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+                var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
                 var time = today.getHours() + "h " + today.getMinutes() + "m " + today.getSeconds() + "s";
-                var dateTime = date+' '+time;
+                var dateTime = date + ' ' + time;
 
                 // lọc dữ liệu
                 var tempTemp = {
@@ -166,7 +206,7 @@ function pushCarttoLocalStorage() {
                             value = "Đang xử lí";
                             color = "orange";
                         }
-                        
+
                         if (showPayment[i].status == 'confirmed') {
                             value = "Đã xác nhận";
                             color = "green";
@@ -179,10 +219,10 @@ function pushCarttoLocalStorage() {
 
                         temp += `
                         <tr>
-                            <td style="width: 2%">${i+1}</td>
+                            <td style="width: 2%">${i + 1}</td>
                             <td style="width: 45%">${showPayment[i].ListNameProducts.join('</br>')}</td>
                             <td style="width: 18%">${showPayment[i].dateTime}</td>
-                            <td style="width: 15%">${showPayment[i].totalMoney.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</td>
+                            <td style="width: 15%">${showPayment[i].totalMoney.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
                             <td id="js-cart-status" style="width: 20%; color: ${color}">${value}</td>
                         </tr>
                         `;
