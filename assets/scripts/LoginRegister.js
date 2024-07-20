@@ -4,75 +4,57 @@ function register() {
 	var btnRegister = document.querySelector('#js-btn-register');
 	btnRegister.addEventListener('click', () => {
 		var today = new Date();
-		var userArray = JSON.parse(localStorage.getItem('user'));
-		var name = document.getElementById("js-RG_name");
+		var userArray = JSON.parse(localStorage.getItem('user')) || [];
 		var gmail = document.getElementById("js-RG_gmail");
 		var username = document.getElementById("js-RG_account");
 		var password = document.getElementById("js-RG_password");
-        var REpassword = document.querySelector('#js-RG_RePassword');
-        var RadioOption = document.querySelector("#js-RG_radio");
-		var Address = document.querySelector("#js-RG_address");
-		var Phonenumber = document.querySelector("#js-RG_phonenumber");
+		var REpassword = document.querySelector('#js-RG_RePassword');
+		var RadioOption = document.querySelector("#js-RG_radio");
+		var checkAcc = userArray.some(item => item.username === username.value);
+		var checkGmail = userArray.some(item => item.gmail === gmail.value);
 
-		var RegisterDay = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-
-		var checkAcc = userArray.some((item) => {
-			return item.username == username.value;
-		});
-
-		var checkGmail = userArray.some((item) => {
-			return item.gmail == gmail.value;
-		});
-
-		if(checkGmail) {
-			alert("Đã có có người sử dụng gmail này để đăng kí !\n Vui lòng sử dụng gmail khác !");
-		} else if(checkAcc) {
-			alert("Đã có người sử dụng tên đăng nhập này rồi !");
+		if (checkGmail) {
+			alert("Đã có người sử dụng gmail này để đăng kí! Vui lòng sử dụng gmail khác!");
+		} else if (checkAcc) {
+			alert("Đã có người sử dụng tên đăng nhập này rồi!");
 		} else {
-			
-			if (REpassword.value != password.value) {
-				alert("Mật khẩu và mật khẩu xác nhận phải giống nhau !");
+			if (REpassword.value !== password.value) {
+				alert("Mật khẩu và mật khẩu xác nhận phải giống nhau!");
 				REpassword.focus();
 				return false;
 			}
 
 			if (!RadioOption.checked) {
-				alert("Bạn phải xác nhận chấp nhận điều khoảng của chúng tôi !");
+				alert("Bạn phải xác nhận chấp nhận điều khoản của chúng tôi!");
 				return false;
 			}
-	
-			var user = { 
-				name: name.value,
-				username: username.value, 
-				password: password.value, 
+
+			var user = {
+				username: username.value,
+				password: password.value,
 				gmail: gmail.value,
-				RegisterDay: RegisterDay,
-				userType: 'user',
-				phonenumber: Phonenumber.value,
-				address: Address.value,
+				userType: 'user'
 			};
+
 			userArray.push(user);
-			localStorage.setItem('user',JSON.stringify(userArray));
-			alert("Đăng kí tài khoản thành công !\n Chúc bạn mua sắm vui vẻ");
-			
-	        // đóng form lẫn reset value trong form input
-			document.querySelector(".LR-wrap").classList.remove('isOpenLR');
-			name.value = "";
+			localStorage.setItem('user', JSON.stringify(userArray));
+			alert("Đăng kí tài khoản thành công! Chúc bạn mua sắm vui vẻ");
+
+			// Đóng form và reset value trong form input
 			gmail.value = "";
 			username.value = "";
 			password.value = "";
 			REpassword.value = "";
-			Address.value = "";
-			Phonenumber.value = "";
 			RadioOption.checked = false;
 		}
 	});
 }
 
+
 // --------------------------------------------------------------------------- //
 // xử lí sự kiện logout của user
 function Handle_LogOut() {
-    var isLogin = document.querySelector(".js-isLogin");
+	var isLogin = document.querySelector(".js-isLogin");
 	var logout = document.querySelector(".header-navbar-logout");
 	var header = document.querySelector(".header");
 	var container = document.querySelector(".container");
@@ -81,17 +63,17 @@ function Handle_LogOut() {
 		logout.classList.add('is-Logout');
 		event.stopPropagation();
 	})
-	
+
 	logout.onclick = () => {
 		window.location.reload(); // sau khi ấn nút thoát thì load lại trang
 	}
 
 	// click ra ngoài form logout thì ẩn button logout
-	header.addEventListener("click", () =>{
+	header.addEventListener("click", () => {
 		logout.classList.remove('is-Logout');
 	})
 
-	container.addEventListener("click", () =>{
+	container.addEventListener("click", () => {
 		logout.classList.remove('is-Logout'); //
 	})
 }
@@ -110,16 +92,16 @@ function login() {
 			return item.username == username.value;
 		});
 
-		if(!checkAcc) {
+		if (!checkAcc) {
 			alert("Tên tài khoản không tồn tại !");
-		} else{
-			for(i=0;i<userArray.length;i++) {
-				if(userArray[i].username == username.value && userArray[i].password != password.value) {
+		} else {
+			for (i = 0; i < userArray.length; i++) {
+				if (userArray[i].username == username.value && userArray[i].password != password.value) {
 					alert('Sai mật khẩu !');
 					break;
 				}
 
-				if(userArray[i].username == username.value && userArray[i].password == password.value) {
+				if (userArray[i].username == username.value && userArray[i].password == password.value) {
 					document.querySelector(".js-HandlerLR").innerHTML = `
 							<i class="header-user--icon far fa-user"></i>
 							<span id="js-Username">${userArray[i].username}</span>
@@ -131,7 +113,7 @@ function login() {
 					formPayment()// hiển thị form đặt hàng
 					showListCart(); // hiển thị giỏ hàng
 					break;
-				}				
+				}
 			}
 		}
 	});
@@ -144,28 +126,28 @@ function showListCart() {
 	var showPayment = JSON.parse(localStorage.getItem('cartList'));
 	var temp = '';
 	for (var i = 0; i < showPayment.length; i++) {
-		if(showPayment[i].username == nameUser) {
-			if(showPayment[i].status == 'confirmed') {
+		if (showPayment[i].username == nameUser) {
+			if (showPayment[i].status == 'confirmed') {
 				value = "Đã xác nhận";
 				color = "green";
-			} 
+			}
 
-			if(showPayment[i].status == 'pending') {
+			if (showPayment[i].status == 'pending') {
 				value = "Đang xử lí";
 				color = "orange";
 			}
 
-			if(showPayment[i].status == 'unconfirmed') {
+			if (showPayment[i].status == 'unconfirmed') {
 				value = "Đã huỷ";
 				color = "red";
 			}
-			
+
 			temp += `
 			<tr>
-				<td style="width: 2%">${i+1}</td>
+				<td style="width: 2%">${i + 1}</td>
 				<td style="width: 45%">${showPayment[i].ListNameProducts.join('</br>')}</td>
 				<td style="width: 18%">${showPayment[i].dateTime}</td>
-				<td style="width: 15%">${showPayment[i].totalMoney.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</td>
+				<td style="width: 15%">${showPayment[i].totalMoney.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</td>
 				<td id="js-cart-status" style="width: 20%; color: ${color}">${value}</td>
 			</tr>
 			`;
@@ -183,13 +165,13 @@ function showListCart() {
 		</tr>
 		${temp}
 		</table>
-	`;    
+	`;
 }
 
 // --------------------------------------------------------------------------- //
 // function hiển thị giỏ hàng trống
 function formPayment() {
-    document.querySelector('.cartPayment').innerHTML = `
+	document.querySelector('.cartPayment').innerHTML = `
     <div class="container__cart-title">Đơn Hàng hiện tại</div>
     <div class="container__Mycart-wrap">
         <ul class="container__Mycart-listItem">
