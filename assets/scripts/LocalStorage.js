@@ -7,7 +7,6 @@ function createAccount() {
             username: 'admin',
             password: '987',
             gmail: 'admin@gmail.com',
-            RegisterDay: `1-11-2001`,
             userType: 'admin',
         };
         userArray.push(admin);
@@ -18,10 +17,7 @@ function createAccount() {
                 username: `user${i}`,
                 password: `${123 + i}`,
                 gmail: `user${i}@gmail.com`,
-                RegisterDay: `${i}-1-1999`,
                 userType: 'user',
-
-
             };
             userArray.push(temp);
         }
